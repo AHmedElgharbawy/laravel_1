@@ -37,4 +37,11 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+    public function username()
+    {
+        $value = request()->input("identify"); // input field name
+        $key = filter_var($value,FILTER_VALIDATE_EMAIL) ? "email" : "phone";
+        request()->merge([$key => $value]);
+        return $key;
+    }
 }
