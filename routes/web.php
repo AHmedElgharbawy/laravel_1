@@ -22,3 +22,23 @@ Route::get('/', function () {
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware("verified");
 
+
+Route::get("/offers","OffersController@getFillable");
+
+
+Route::group(["prefix"=>"test"],function(){
+    Route::get("/insert","OffersController@store");
+});
+
+
+
+Route::group(['prefix' => LaravelLocalization::setLocale()], function()
+{
+    Route::group(["prefix"=>"offer"],function(){
+        Route::get("/create","OffersController@create");
+        Route::post("/store","OffersController@store")->name("offer.store");
+        Route::get("/all","OffersController@allOffers")->name("all");
+    });
+});
+
+
